@@ -1,0 +1,76 @@
+# RoboPrompt for SO101 Configuration
+
+# Dataset Configuration
+dataset:
+  name: "aadarshram/act_pick_place_tape"
+  local_path: "./data/lerobot_dataset"  # Path where dataset will be downloaded
+  robot_type: "so100_follower"
+  
+# Robot Configuration
+robot:
+  urdf_path: "/config/so100.urdf"
+  joint_names:
+    - "shoulder_pan"
+    - "shoulder_lift"
+    - "elbow_flex"
+    - "wrist_flex"
+    - "wrist_roll"
+    - "gripper"
+  end_effector_link: "jaw"  # The end of the gripper
+  
+# Keyframe Extraction
+keyframes:
+  velocity_threshold: 0.01  # δ threshold for near-zero joint velocities
+  method: "velocity_and_gripper"  # Options: "velocity_only", "gripper_only", "velocity_and_gripper"
+  
+# Action Discretization (following RoboPrompt paper)
+discretization:
+  translation_bins: 100  # Discretize each translation component into 100 bins
+  rotation_bins: 72      # Discretize each rotation component into 72 bins (5° each)
+  # Workspace limits (meters) - adjust based on your robot's reach
+  x_range: [-0.3, 0.3]
+  y_range: [-0.3, 0.3]
+  z_range: [0.0, 0.5]
+  # Rotation limits (radians)
+  roll_range: [-3.14159, 3.14159]
+  pitch_range: [-3.14159, 3.14159]
+  yaw_range: [-3.14159, 3.14159]
+  
+# Object Pose Estimation
+pose_estimation:
+  method: "foundationpose"  # Options: "foundationpose", "groundingdino_sam"
+  foundationpose:
+    model_path: "./models/foundationpose"
+    use_depth: false  # Based on David Yin's email - RGB only
+  objects:
+    - name: "tape"
+      # Add CAD model path if available for FoundationPose
+      # model_path: "./models/objects/tape.obj"
+    # Add more objects as needed
+    
+# In-Context Learning (ICL)
+icl:
+  num_demonstrations: 5  # Number of demo episodes to use
+  llm_model: "gpt-4-turbo"  # or "gpt-4o"
+  api_key_env: "OPENAI_API_KEY"  # Environment variable name for API key
+  temperature: 0.0  # Low temperature for more deterministic outputs
+  max_tokens: 2000
+  
+# Inverse Kinematics
+ik:
+  method: "nearest_neighbor"  # Options: "nearest_neighbor", "pybullet_ik", "learned_mapping"
+  nearest_neighbor:
+    distance_metric: "euclidean"  # Distance metric for NN search
+    
+# Execution
+execution:
+  use_simulation: false  # Set to true for testing without real robot
+  control_frequency: 10  # Hz
+  interpolation_steps: 20  # Number of steps to interpolate between keyframes
+  
+# Paths
+paths:
+  output_dir: "./output"
+  demonstrations_dir: "./output/demonstrations"
+  results_dir: "./output/results"
+  logs_dir: "./output/logs"

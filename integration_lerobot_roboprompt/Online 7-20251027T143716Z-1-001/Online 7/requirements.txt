@@ -1,0 +1,37 @@
+# Core dependencies
+numpy>=1.24.0
+scipy>=1.10.0
+pandas>=2.0.0
+
+# Robot and kinematics
+pybullet>=3.2.5
+urdf_parser_py>=0.0.4
+lerobot>=0.1.0
+
+# Computer vision and pose estimation
+opencv-python>=4.8.0
+pillow>=10.0.0
+# foundationpose - install from https://github.com/NVlabs/FoundationPose
+
+# Deep learning
+torch>=2.0.0
+torchvision>=0.15.0
+
+# LLM and API
+openai>=1.0.0
+anthropic>=0.7.0  # Optional: if using Claude instead
+
+# Dataset handling
+datasets>=2.14.0
+huggingface-hub>=0.17.0
+pyarrow>=13.0.0
+
+# Utilities
+pyyaml>=6.0
+tqdm>=4.65.0
+rich>=13.0.0
+matplotlib>=3.7.0
+
+# Video processing
+av>=10.0.0
+imageio>=2.31.0

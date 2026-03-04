@@ -1,0 +1,46 @@
+# Production configuration for ACT training comparison
+# Trains both Standard and Modified ACT on MetaWorld MT-1 shelf-place task
+
+# Dataset configuration
+dataset:
+  batch_size: 8
+  num_workers: 2
+  val_split: 0.2
+
+# Model architecture
+model:
+  joint_dim: 39
+  action_dim: 4
+  hidden_dim: 256
+  latent_dim: 32
+  n_encoder_layers: 4
+  n_decoder_layers: 4
+  n_heads: 8
+  feedforward_dim: 1024
+  dropout: 0.1
+
+# Action chunking
+chunking:
+  chunk_size: 50
+  temporal_ensemble_weight: 0.01
+
+# Training parameters
+training:
+  epochs: 50
+  learning_rate: 1.0e-4
+  weight_decay: 1.0e-4
+  kl_weight: 10.0
+  grad_clip: 1.0
+
+# Environment
+env:
+  task: shelf-place-v3
+  image_size: [480, 480]
+  action_space: 4
+  state_space: 39
+
+# Logging
+logging:
+  use_wandb: false
+  log_every: 10
+  save_every: 10

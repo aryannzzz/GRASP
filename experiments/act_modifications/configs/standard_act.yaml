@@ -1,0 +1,49 @@
+# configs/standard_act.yaml
+
+# Environment
+env:
+  name: "shelf-place-v3"
+  max_steps: 500
+  image_size: [480, 480]
+
+# Model architecture
+model:
+  joint_dim: 39  # MetaWorld full state observation is 39D
+  action_dim: 4  # [dx, dy, dz, gripper]
+  hidden_dim: 512
+  latent_dim: 32
+  n_encoder_layers: 4
+  n_decoder_layers: 7
+  n_heads: 8
+  feedforward_dim: 3200
+  n_cameras: 1
+  dropout: 0.1
+
+# Action chunking
+chunking:
+  chunk_size: 100
+  query_frequency: 100  # Use full action chunk (same as chunk_size)
+  temporal_ensemble_weight: 0.01
+
+# Training
+training:
+  batch_size: 8
+  learning_rate: 1.0e-5
+  weight_decay: 1.0e-4
+  min_lr: 1.0e-6
+  num_epochs: 2000
+  beta: 10.0
+  grad_clip: 1.0
+  
+# Data
+data:
+  train_split: 0.9
+  
+# Logging
+logging:
+  log_freq: 10
+  save_freq: 100
+  eval_freq: 500
+  use_wandb: false
+  wandb_project: "act-metaworld"
+  exp_name: "standard_act"

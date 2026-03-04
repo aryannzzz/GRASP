@@ -1,0 +1,23 @@
+============================================================
+TRAINING SUMMARY
+============================================================
+
+Standard ACT:
+  Final Train Loss: 0.7377
+  Final Val Loss: 0.2083
+  Best Val Loss: 0.1289
+  Final L1: 0.1466
+  Final KL: 0.0062
+  Total Epochs: 500
+
+Modified ACT:
+  Final Train Loss: 0.4805
+  Final Val Loss: 0.1406
+  Best Val Loss: 0.0931
+  Final L1: 0.0925
+  Final KL: 0.0048
+  Total Epochs: 500
+
+Comparison:
+  Val Loss Difference: -0.0358
+  Winner: Modified ACT (lower validation loss)
